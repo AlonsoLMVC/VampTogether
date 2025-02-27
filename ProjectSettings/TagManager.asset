@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Human
   - Vampire
+  - ExitDoor
   layers:
   - Default
   - TransparentFX

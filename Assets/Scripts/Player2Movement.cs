@@ -13,6 +13,8 @@ public class Player2Movement : MonoBehaviour
 
     GameObject FloorTrigger;
 
+    public bool MovementEnabled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,37 +31,39 @@ public class Player2Movement : MonoBehaviour
 
         // rb.velocity = Vector2.zero ;
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (MovementEnabled)
         {
-            velocity = new Vector2(1 * speed, rb.velocity.y);
-            rb.velocity = velocity;
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                velocity = new Vector2(1 * speed, rb.velocity.y);
+                rb.velocity = velocity;
 
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            velocity = new Vector2(-1 * speed, rb.velocity.y);
-            rb.velocity = velocity;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                velocity = new Vector2(-1 * speed, rb.velocity.y);
+                rb.velocity = velocity;
 
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && OnGround)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //velocity = Vector2.right;
-        }
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow) && OnGround)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                //velocity = Vector2.right;
+            }
 
 
-        if (rb.velocity.magnitude > 0.1f)
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, decelerationRate * Time.deltaTime);
+            if (rb.velocity.magnitude > 0.1f)
+            {
+                rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, decelerationRate * Time.deltaTime);
+            }
+            else
+            {
+                rb.velocity = Vector2.zero; // Stop completely when velocity is very low
+            }
         }
-        else
-        {
-            rb.velocity = Vector2.zero; // Stop completely when velocity is very low
-        }
-
     }
 
 

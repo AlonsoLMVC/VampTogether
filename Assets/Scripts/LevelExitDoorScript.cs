@@ -10,18 +10,28 @@ public class LevelExitDoorScript : MonoBehaviour
     public bool StandingInFront;
     int targetIntensity;
     Light2D lightComponent;
-    float glowSpeed = 3f;
+    float glowSpeed = 5f;
+    float AttractionAmount = 4;
 
     public GameObject OtherDoor;
     public string NextLevel;
     public GameObject canvas;
 
+    GameObject OverlappedPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         lightComponent = transform.GetChild(0).GetComponent<Light2D>();
         canvas = GameObject.Find("Canvas");
+
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("ExitDoor"))
+        {
+            if(g != this.gameObject)
+            {
+                OtherDoor = g;
+            }
+        }
         
     }
 
@@ -56,7 +66,23 @@ public class LevelExitDoorScript : MonoBehaviour
 
     public IEnumerator FinishedLevel(float InitialDelay, float FadeSpeed)
     {
-        //yield return new WaitForSeconds(InitialDelay);
+        if(OverlappedPlayer != null)
+        {
+            if(OverlappedPlayer.GetComponent<Player1MovementScript>() != null)
+            {
+                OverlappedPlayer.GetComponent<Player1MovementScript>().MovementEnabled = false;
+            }
+            else if (OverlappedPlayer.GetComponent<Player2Movement>() != null)
+            {
+                OverlappedPlayer.GetComponent<Player2Movement>().MovementEnabled = false;
+
+            }
+
+            if(Vector3.Distance(OverlappedPlayer.transform.position, transform.position) >0.25f)
+            OverlappedPlayer.gameObject.transform.position = Vector3.Lerp(OverlappedPlayer.gameObject.transform.position,transform.position, AttractionAmount * Time.deltaTime);
+        }
+
+        yield return new WaitForSecondsRealtime(InitialDelay);
 
         StartCoroutine(canvas.GetComponent<CanvasScript>().FadeToBlack(FadeSpeed));
         yield return new WaitForSeconds(FadeSpeed);
@@ -73,7 +99,7 @@ public class LevelExitDoorScript : MonoBehaviour
         {
             if (collision.gameObject.tag == ForCharacter)
             {
-
+                OverlappedPlayer = collision.gameObject;
                 StandingInFront = true;
 
 
@@ -89,8 +115,8 @@ public class LevelExitDoorScript : MonoBehaviour
         {
             if (collision.gameObject.tag == ForCharacter)
             {
-
-                StandingInFront = false;
+               OverlappedPlayer = null;
+               StandingInFront = false;
             }
 
         }

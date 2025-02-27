@@ -15,6 +15,8 @@ public class Player1MovementScript : MonoBehaviour
     public int NumberOfJumps;
     public int MaxNumberOfJumps;
 
+    public bool MovementEnabled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,33 +32,35 @@ public class Player1MovementScript : MonoBehaviour
 
         Vector2 velocity = Vector2.zero;
 
-       // rb.velocity = Vector2.zero ;
+        // rb.velocity = Vector2.zero ;
 
-        if (Input.GetKey(KeyCode.D))
+        if (MovementEnabled)
         {
-            velocity = new Vector2(1 * speed, rb.velocity.y);
-            rb.velocity = velocity;
-
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            velocity = new Vector2(-1 *speed, rb.velocity.y);
-            rb.velocity = velocity;
-
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (NumberOfJumps != 0)
+            if (Input.GetKey(KeyCode.D))
             {
-                rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
-                NumberOfJumps--;
+                velocity = new Vector2(1 * speed, rb.velocity.y);
+                rb.velocity = velocity;
+
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                velocity = new Vector2(-1 * speed, rb.velocity.y);
+                rb.velocity = velocity;
+
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (NumberOfJumps != 0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
+                    NumberOfJumps--;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+
             }
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-           
-        }
-       
 
 
 
