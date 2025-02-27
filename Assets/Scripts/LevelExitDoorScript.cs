@@ -12,6 +12,7 @@ public class LevelExitDoorScript : MonoBehaviour
     Light2D lightComponent;
     float glowSpeed = 5f;
     float AttractionAmount = 4;
+    float OpenSpeed = 2;
 
     public GameObject OtherDoor;
     public string NextLevel;
@@ -19,11 +20,17 @@ public class LevelExitDoorScript : MonoBehaviour
 
     GameObject OverlappedPlayer;
 
+    GameObject OpeningSquare;
+
+    bool open = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
         lightComponent = transform.GetChild(0).GetComponent<Light2D>();
         canvas = GameObject.Find("Canvas");
+        OpeningSquare = transform.Find("Opening").gameObject;
 
         foreach(GameObject g in GameObject.FindGameObjectsWithTag("ExitDoor"))
         {
@@ -33,6 +40,8 @@ public class LevelExitDoorScript : MonoBehaviour
             }
         }
         
+
+
     }
 
     // Update is called once per frame
@@ -57,9 +66,14 @@ public class LevelExitDoorScript : MonoBehaviour
             if (StandingInFront && OtherDoor.GetComponent<LevelExitDoorScript>().StandingInFront)
             {
 
-                StartCoroutine(FinishedLevel(0.5f,0.25f));
+                StartCoroutine(FinishedLevel(1f , 0.25f));
 
             }
+        }
+
+        if (open)
+        {
+            OpeningSquare.transform.localScale = Vector3.Lerp(OpeningSquare.transform.localScale, new Vector3(0.7346335f, OpeningSquare.transform.localScale.y, 1), OpenSpeed * Time.deltaTime);
         }
 
     }
@@ -77,9 +91,11 @@ public class LevelExitDoorScript : MonoBehaviour
                 OverlappedPlayer.GetComponent<Player2Movement>().MovementEnabled = false;
 
             }
-
+            
             if(Vector3.Distance(OverlappedPlayer.transform.position, transform.position) >0.25f)
             OverlappedPlayer.gameObject.transform.position = Vector3.Lerp(OverlappedPlayer.gameObject.transform.position,transform.position, AttractionAmount * Time.deltaTime);
+
+            open = true;
         }
 
         yield return new WaitForSecondsRealtime(InitialDelay);
