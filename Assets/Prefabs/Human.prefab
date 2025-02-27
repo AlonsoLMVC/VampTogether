@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 1241758480449317641}
   m_Layer: 0
   m_Name: Human
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,6 +234,7 @@ MonoBehaviour:
   JumpHeight: 40
   OnGround: 0
   decelerationRate: 5
+  MovementEnabled: 1
 --- !u!1 &8213210441862170192
 GameObject:
   m_ObjectHideFlags: 0
