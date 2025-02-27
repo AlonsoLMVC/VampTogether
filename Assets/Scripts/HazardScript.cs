@@ -22,8 +22,6 @@ public class HazardScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider != null)
-
-            Debug.Log(collider);
         {
             if (collider.gameObject.tag == AffectsPlayer || KillsBothPlayers)
             {
