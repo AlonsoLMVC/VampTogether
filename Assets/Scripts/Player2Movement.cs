@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player2Movement : MonoBehaviour
 {
@@ -61,5 +62,20 @@ public class Player2Movement : MonoBehaviour
 
     }
 
+
+    public IEnumerator OnDeath()
+    {
+        float fadeDuration = 0.25f;
+
+        StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
+
+        GetComponent<SpriteRenderer>().enabled = false;
+
+
+        yield return new WaitForSecondsRealtime(fadeDuration);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        yield return null;
+    }
 
 }

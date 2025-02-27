@@ -16,7 +16,26 @@ public class FloorTriggerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        Ray2D ray;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject != transform.parent.gameObject)
+            {
+                OnGround = true;
+            }
+            Debug.Log(hit.collider.gameObject);
+        }
+        else
+        {
+            OnGround = false;
+
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
