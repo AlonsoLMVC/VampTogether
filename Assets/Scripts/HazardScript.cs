@@ -21,26 +21,26 @@ public class HazardScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider != null)
+        if (collider != null) { 
 
             Debug.Log(collider);
-        {
-            if (collider.gameObject.tag == AffectsPlayer || KillsBothPlayers)
             {
-                if(collider.gameObject.GetComponent<Player2Movement>() != null)
+                if (collider.gameObject.tag == AffectsPlayer || KillsBothPlayers)
                 {
-                    StartCoroutine(collider.gameObject.GetComponent<Player2Movement>().OnDeath());
+                    if (collider.gameObject.GetComponent<Player2Movement>() != null)
+                    {
+                        StartCoroutine(collider.gameObject.GetComponent<Player2Movement>().OnDeath());
 
-                }
-                else if (collider.gameObject.GetComponent<Player1MovementScript>() != null)
-                {
-                    StartCoroutine(collider.gameObject.GetComponent<Player1MovementScript>().OnDeath());
+                    }
+                    else if (collider.gameObject.GetComponent<Player1MovementScript>() != null)
+                    {
+                        StartCoroutine(collider.gameObject.GetComponent<Player1MovementScript>().OnDeath());
+
+                    }
 
                 }
 
             }
-           
-
         }
     }
 }
