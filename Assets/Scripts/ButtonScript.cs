@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonScript : MonoBehaviour
 {
     public bool Pressed;
+    public GameObject interactibleObject;
 
 
     // Start is called before the first frame update
@@ -24,6 +25,10 @@ public class ButtonScript : MonoBehaviour
         if (collision != null)
         {
             transform.parent.GetComponent<SpriteRenderer>().color = Color.green;
+
+            Interactible i = interactibleObject.GetComponent<Interactible>();
+            i.turnOn();
+
             Pressed = true;
         }
     }
@@ -33,6 +38,9 @@ public class ButtonScript : MonoBehaviour
         if (collision != null)
         {
             transform.parent.GetComponent<SpriteRenderer>().color = Color.red;
+
+            Interactible i = interactibleObject.GetComponent<Interactible>();
+            i.turnOff();
 
             Pressed = false;
         }
