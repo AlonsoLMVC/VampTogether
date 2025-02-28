@@ -7,6 +7,8 @@ public class SoundScript : MonoBehaviour
     public AudioSource audioSource;
 
     public AudioClip[] GrassFootSteps;
+    public AudioClip[] WaterSplashes;
+    public AudioClip InFrontOfDoorSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -38,5 +40,22 @@ public class SoundScript : MonoBehaviour
                 Destroy(this.gameObject,audioSource.clip.length);
             }
         }
+    }
+
+    public void PlayWaterSplash()
+    {
+        audioSource.clip = WaterSplashes[Random.Range(0,WaterSplashes.Length)];
+
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
+
+    }
+
+    public void PlayInFrontOfDoorSound()
+    {
+        audioSource.clip = InFrontOfDoorSoundEffect;
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
+
     }
 }

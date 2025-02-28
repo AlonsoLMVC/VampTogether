@@ -6,6 +6,8 @@ public class HazardScript : MonoBehaviour
 {
     public string AffectsPlayer;
     public bool KillsBothPlayers;
+    public string Type;
+    public GameObject SoundObj;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,11 @@ public class HazardScript : MonoBehaviour
 
             }
            
+            if(Type == "Water")
+            {
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayWaterSplash();
+            }
 
         }
     }

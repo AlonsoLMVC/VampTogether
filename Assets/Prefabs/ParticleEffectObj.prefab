@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7981075930276914473}
   - component: {fileID: 3689788890121523644}
   - component: {fileID: 5047713674102938386}
+  - component: {fileID: 4514336469495576054}
   m_Layer: 0
   m_Name: ParticleEffectObj
   m_TagString: Untagged
@@ -50,7 +51,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -664,7 +665,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 5
     angle: 1.9
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -672,7 +673,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 1.5, y: 1.5, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -1045,7 +1046,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.7891922
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1053,7 +1054,7 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.24859646
+          time: 0.18698671
           value: 1
           inSlope: 1
           outSlope: 1
@@ -4897,3 +4898,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4514336469495576054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200450243303000288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444b06f2df8d09d4cb62ee4a71027a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

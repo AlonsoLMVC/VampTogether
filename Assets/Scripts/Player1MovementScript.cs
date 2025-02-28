@@ -19,6 +19,7 @@ public class Player1MovementScript : MonoBehaviour
     public bool MovementEnabled;
 
     public GameObject SoundObj;
+    public GameObject Particles;
 
     float stepTimer;
     float stepInterval = 0.3f;
@@ -63,6 +64,7 @@ public class Player1MovementScript : MonoBehaviour
                 if (NumberOfJumps != 0)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
+                    Instantiate(Particles,transform.position,Quaternion.identity);
                     NumberOfJumps--;
                 }
             }

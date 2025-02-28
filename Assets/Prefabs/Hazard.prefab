@@ -92,6 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AffectsPlayer: Human
+  KillsBothPlayers: 0
+  Type: 
+  SoundObj: {fileID: 8081383973519562311, guid: 3c5c1837c4bb71a47b0dd988cb410c75, type: 3}
 --- !u!212 &7878858099610670880
 SpriteRenderer:
   m_ObjectHideFlags: 0
