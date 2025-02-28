@@ -79,6 +79,10 @@ public class Player1MovementScript : MonoBehaviour
             {
 
             }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(OnDeath());
+            }
         }
 
 
@@ -135,7 +139,8 @@ public class Player1MovementScript : MonoBehaviour
 
         StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
 
-        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<SpriteRenderer>().color = Color.red;
+        rb.gravityScale = 0;
         MovementEnabled = false;
 
         GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);

@@ -67,6 +67,10 @@ public class Player2Movement : MonoBehaviour
                 //velocity = Vector2.right;
 
             }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(OnDeath());
+            }
 
 
             if (rb.velocity.magnitude > 0.1f)
@@ -114,7 +118,9 @@ public class Player2Movement : MonoBehaviour
 
         StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
 
-        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<SpriteRenderer>().color = Color.red;
+        rb.gravityScale = 0;
+
         MovementEnabled = false;
 
 
