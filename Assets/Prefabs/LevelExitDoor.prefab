@@ -228,3 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ForCharacter: Human
   StandingInFront: 0
+  OtherDoor: {fileID: 0}
+  NextLevel: 
+  canvas: {fileID: 0}
+  SoundObj: {fileID: 8081383973519562311, guid: 3c5c1837c4bb71a47b0dd988cb410c75, type: 3}

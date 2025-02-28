@@ -24,6 +24,7 @@ public class LevelExitDoorScript : MonoBehaviour
 
     bool open = false;
 
+    public GameObject SoundObj;
 
     // Start is called before the first frame update
     void Start()
@@ -95,7 +96,17 @@ public class LevelExitDoorScript : MonoBehaviour
             if(Vector3.Distance(OverlappedPlayer.transform.position, transform.position) >0.25f)
             OverlappedPlayer.gameObject.transform.position = Vector3.Lerp(OverlappedPlayer.gameObject.transform.position,transform.position, AttractionAmount * Time.deltaTime);
 
+
+            if (open == false)
+            {
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().ExitDoorOpenSound();
+            }
+
             open = true;
+
+           
+
         }
 
         yield return new WaitForSecondsRealtime(InitialDelay);
@@ -118,7 +129,8 @@ public class LevelExitDoorScript : MonoBehaviour
                 OverlappedPlayer = collision.gameObject;
                 StandingInFront = true;
 
-
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayInFrontOfDoorSound();
 
             }
 
