@@ -136,6 +136,8 @@ MonoBehaviour:
   NumberOfJumps: 1
   MaxNumberOfJumps: 1
   MovementEnabled: 1
+  SoundObj: {fileID: 8081383973519562311, guid: 3c5c1837c4bb71a47b0dd988cb410c75, type: 3}
+  Particles: {fileID: 1200450243303000288, guid: f844adb8ffa15ac43a9f739b55e5cf01, type: 3}
 --- !u!70 &5468407591027896518
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

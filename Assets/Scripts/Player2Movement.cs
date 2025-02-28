@@ -10,10 +10,16 @@ public class Player2Movement : MonoBehaviour
     public int JumpHeight;
     public bool OnGround;
     public float decelerationRate;
+    bool Walking;
 
     GameObject FloorTrigger;
 
     public bool MovementEnabled;
+    public GameObject SoundObj;
+
+    float stepTimer;
+    float stepInterval = 0.25f;
+    bool WasMovingLastFrame;
 
     private Animator anim;
 
@@ -33,6 +39,8 @@ public class Player2Movement : MonoBehaviour
         anim.SetBool("isAirborne", !OnGround);
 
         Vector2 velocity = Vector2.zero;
+        Walking = false;
+
 
         // rb.velocity = Vector2.zero ;
 
@@ -44,6 +52,7 @@ public class Player2Movement : MonoBehaviour
             {
                 velocity = new Vector2(1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+                Walking = true;
 
                 GetComponent<SpriteRenderer>().flipX = false;
             }
@@ -51,6 +60,7 @@ public class Player2Movement : MonoBehaviour
             {
                 velocity = new Vector2(-1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+                Walking = true;
 
                 GetComponent<SpriteRenderer>().flipX = true;
 
@@ -58,10 +68,18 @@ public class Player2Movement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow) && OnGround)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
+
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayHumanJumpSoundEffect();
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 //velocity = Vector2.right;
+
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(OnDeath());
             }
 
 
@@ -87,6 +105,33 @@ public class Player2Movement : MonoBehaviour
         }
 
 
+
+        if (OnGround && Walking)
+        {
+            if (!WasMovingLastFrame)
+            {
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
+                stepTimer = 0f;
+            }
+            else
+            {
+
+                stepTimer += Time.deltaTime;
+
+                if (stepTimer >= stepInterval)
+                {
+                    GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                    NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
+                    stepTimer = 0f;
+                }
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+        }
+        WasMovingLastFrame = Walking;
     }
 
 
@@ -96,10 +141,16 @@ public class Player2Movement : MonoBehaviour
 
         StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
 
-        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<SpriteRenderer>().color = Color.red;
+        rb.gravityScale = 0;
+
+        MovementEnabled = false;
 
 
-        yield return new WaitForSecondsRealtime(fadeDuration);
+        GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+        NewSound.GetComponent<SoundScript>().PlayHumanDeathSound();
+
+        yield return new WaitForSecondsRealtime(NewSound.GetComponent<SoundScript>().audioSource.clip.length);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null;

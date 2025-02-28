@@ -14,11 +14,18 @@ public class Player1MovementScript : MonoBehaviour
     GameObject FloorTrigger;
     public int NumberOfJumps;
     public int MaxNumberOfJumps;
-
+    bool Walking;
+    bool WasMovingLastFrame;
     public bool MovementEnabled;
 
     private Animator anim;
 
+
+    public GameObject SoundObj;
+    public GameObject Particles;
+
+    float stepTimer;
+    float stepInterval = 0.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +43,7 @@ public class Player1MovementScript : MonoBehaviour
         anim.SetBool("isAirborne", !OnGround);
 
         Vector2 velocity = Vector2.zero;
+        Walking = false;
 
         // rb.velocity = Vector2.zero ;
 
@@ -47,6 +55,8 @@ public class Player1MovementScript : MonoBehaviour
             {
                 velocity = new Vector2(1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+                Walking = true;
+
 
                 GetComponent<SpriteRenderer>().flipX = false;
 
@@ -56,6 +66,7 @@ public class Player1MovementScript : MonoBehaviour
             {
                 velocity = new Vector2(-1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+                Walking=true;
 
                 GetComponent<SpriteRenderer>().flipX = true;
 
@@ -65,15 +76,54 @@ public class Player1MovementScript : MonoBehaviour
                 if (NumberOfJumps != 0)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
+
+                    Instantiate(Particles, transform.position, Quaternion.identity);
+
                     NumberOfJumps--;
+
+
+                    GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                    NewSound.GetComponent<SoundScript>().PlayVampireJumpSoundEffect();
+
                 }
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
 
             }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(OnDeath());
+            }
         }
 
+
+        if (OnGround && Walking)
+        {
+            if (!WasMovingLastFrame)
+            {
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
+                stepTimer = 0f;
+            }
+            else
+            {
+
+                stepTimer += Time.deltaTime;
+
+                if (stepTimer >= stepInterval)
+                {
+                    GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                    NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
+                    stepTimer = 0f;
+                }
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+        }
+        WasMovingLastFrame = Walking;
 
 
 
@@ -120,9 +170,15 @@ public class Player1MovementScript : MonoBehaviour
 
         StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
 
-        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<SpriteRenderer>().color = Color.red;
+        rb.gravityScale = 0;
+        MovementEnabled = false;
 
-        yield return new WaitForSecondsRealtime(fadeDuration);
+        GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+        NewSound.GetComponent<SoundScript>().PlayVampireDeathSound();
+
+
+        yield return new WaitForSecondsRealtime(NewSound.GetComponent<SoundScript>().audioSource.clip.length);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null;
