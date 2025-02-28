@@ -21,9 +21,12 @@ public class Player2Movement : MonoBehaviour
     float stepInterval = 0.25f;
     bool WasMovingLastFrame;
 
+    private Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         FloorTrigger = transform.GetChild(0).gameObject;
     }
@@ -33,11 +36,15 @@ public class Player2Movement : MonoBehaviour
     {
         OnGround = FloorTrigger.GetComponent<FloorTriggerScript>().OnGround;
 
+        anim.SetBool("isAirborne", !OnGround);
+
         Vector2 velocity = Vector2.zero;
         Walking = false;
 
 
         // rb.velocity = Vector2.zero ;
+
+        
 
         if (MovementEnabled)
         {
@@ -47,12 +54,15 @@ public class Player2Movement : MonoBehaviour
                 rb.velocity = velocity;
                 Walking = true;
 
+                GetComponent<SpriteRenderer>().flipX = false;
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 velocity = new Vector2(-1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
                 Walking = true;
+
+                GetComponent<SpriteRenderer>().flipX = true;
 
             }
             if (Input.GetKeyDown(KeyCode.UpArrow) && OnGround)
@@ -82,6 +92,19 @@ public class Player2Movement : MonoBehaviour
                 rb.velocity = Vector2.zero; // Stop completely when velocity is very low
             }
         }
+
+
+
+        if (velocity != Vector2.zero)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
+
+
 
         if (OnGround && Walking)
         {

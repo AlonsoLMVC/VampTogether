@@ -18,6 +18,9 @@ public class Player1MovementScript : MonoBehaviour
     bool WasMovingLastFrame;
     public bool MovementEnabled;
 
+    private Animator anim;
+
+
     public GameObject SoundObj;
     public GameObject Particles;
 
@@ -27,7 +30,8 @@ public class Player1MovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb=GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         FloorTrigger = transform.GetChild(0).gameObject;
     }
 
@@ -36,11 +40,14 @@ public class Player1MovementScript : MonoBehaviour
     {
 
         OnGround = FloorTrigger.GetComponent<FloorTriggerScript>().OnGround;
+        anim.SetBool("isAirborne", !OnGround);
 
         Vector2 velocity = Vector2.zero;
         Walking = false;
 
         // rb.velocity = Vector2.zero ;
+
+        
 
         if (MovementEnabled)
         {
@@ -51,12 +58,17 @@ public class Player1MovementScript : MonoBehaviour
                 Walking = true;
 
 
+                GetComponent<SpriteRenderer>().flipX = false;
+
+
             }
             if (Input.GetKey(KeyCode.A))
             {
                 velocity = new Vector2(-1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
                 Walking=true;
+
+                GetComponent<SpriteRenderer>().flipX = true;
 
             }
             if (Input.GetKeyDown(KeyCode.W))
@@ -112,6 +124,25 @@ public class Player1MovementScript : MonoBehaviour
             stepTimer = 0f;
         }
         WasMovingLastFrame = Walking;
+
+
+
+
+
+
+        if (velocity != Vector2.zero)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
+
+
+
+
+
 
 
         if (rb.velocity.magnitude > 0.1f)
