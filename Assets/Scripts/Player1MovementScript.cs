@@ -14,8 +14,14 @@ public class Player1MovementScript : MonoBehaviour
     GameObject FloorTrigger;
     public int NumberOfJumps;
     public int MaxNumberOfJumps;
-
+    bool Walking;
+    bool WasMovingLastFrame;
     public bool MovementEnabled;
+
+    public GameObject SoundObj;
+
+    float stepTimer;
+    float stepInterval = 0.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +37,7 @@ public class Player1MovementScript : MonoBehaviour
         OnGround = FloorTrigger.GetComponent<FloorTriggerScript>().OnGround;
 
         Vector2 velocity = Vector2.zero;
+        Walking = false;
 
         // rb.velocity = Vector2.zero ;
 
@@ -40,12 +47,15 @@ public class Player1MovementScript : MonoBehaviour
             {
                 velocity = new Vector2(1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+                Walking = true;
+
 
             }
             if (Input.GetKey(KeyCode.A))
             {
                 velocity = new Vector2(-1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+                Walking=true;
 
             }
             if (Input.GetKeyDown(KeyCode.W))
@@ -62,6 +72,33 @@ public class Player1MovementScript : MonoBehaviour
             }
         }
 
+
+        if (OnGround && Walking)
+        {
+            if (!WasMovingLastFrame)
+            {
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
+                stepTimer = 0f;
+            }
+            else
+            {
+
+                stepTimer += Time.deltaTime;
+
+                if (stepTimer >= stepInterval)
+                {
+                    GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                    NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
+                    stepTimer = 0f;
+                }
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+        }
+        WasMovingLastFrame = Walking;
 
 
         if (rb.velocity.magnitude > 0.1f)

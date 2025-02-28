@@ -27,7 +27,7 @@ public class FloorTriggerScript : MonoBehaviour
             {
                 OnGround = true;
             }
-            Debug.Log(hit.collider.gameObject);
+            //Debug.Log(hit.collider.gameObject);
         }
         else
         {
