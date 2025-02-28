@@ -201,6 +201,7 @@ MonoBehaviour:
   OnGround: 0
   decelerationRate: 5
   MovementEnabled: 1
+  SoundObj: {fileID: 8081383973519562311, guid: 3c5c1837c4bb71a47b0dd988cb410c75, type: 3}
 --- !u!95 &1756700150855361539
 Animator:
   serializedVersion: 5
