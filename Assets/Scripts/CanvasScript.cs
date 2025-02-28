@@ -24,6 +24,11 @@ public class CanvasScript : MonoBehaviour
     }
 
 
+    public void startFadeToBlack()
+    {
+
+    }
+
 
     public IEnumerator FadeToBlack(float fadeDuration)
     {
