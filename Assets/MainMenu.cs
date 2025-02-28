@@ -24,9 +24,9 @@ public class MainMenu : MonoBehaviour
     }
 
 
-    void endGame()
+    public void endGame()
     {
-    
+        Application.Quit();
     }
     public IEnumerator FadeToBlack(float fadeDuration)
     {

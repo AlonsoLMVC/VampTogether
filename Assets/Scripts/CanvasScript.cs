@@ -13,6 +13,7 @@ public class CanvasScript : MonoBehaviour
     void Start()
     {
         fadeScreen = transform.Find("BlackScreen").GetComponent<Image>();
+        
 
         StartCoroutine(FadeFromBlack(0.25f));
     }
