@@ -84,6 +84,7 @@ public class SoundScript : MonoBehaviour
         float randomnum = Random.Range(6f, 10);
 
         audioSource.pitch = randomnum / 10;
+        audioSource.volume = .6f;
         audioSource.Play();
         Destroy(this.gameObject, audioSource.clip.length);
     }
