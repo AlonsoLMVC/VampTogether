@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3468373539856759616}
   - component: {fileID: 6943373178512785250}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NoFriction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 1241758480449317641}
   - component: {fileID: 1756700150855361539}
   - component: {fileID: 6747962212452849642}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: New Human
   m_TagString: Human
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7577591738062251846}
   - component: {fileID: 6916167338094931362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FloorTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -46,7 +46,7 @@ public class MainMenu : MonoBehaviour
 
         // Ensure it's fully black at the end
         fadeScreen.color = Color.black;
-        SceneManager.LoadScene("AdamScene");
+        SceneManager.LoadScene("TinsScene");
     }
 
 
