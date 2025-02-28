@@ -17,10 +17,14 @@ public class Player1MovementScript : MonoBehaviour
 
     public bool MovementEnabled;
 
+    private Animator anim;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        rb=GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         FloorTrigger = transform.GetChild(0).gameObject;
     }
 
@@ -29,10 +33,13 @@ public class Player1MovementScript : MonoBehaviour
     {
 
         OnGround = FloorTrigger.GetComponent<FloorTriggerScript>().OnGround;
+        anim.SetBool("isAirborne", !OnGround);
 
         Vector2 velocity = Vector2.zero;
 
         // rb.velocity = Vector2.zero ;
+
+        
 
         if (MovementEnabled)
         {
@@ -41,11 +48,16 @@ public class Player1MovementScript : MonoBehaviour
                 velocity = new Vector2(1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
 
+                GetComponent<SpriteRenderer>().flipX = false;
+
+
             }
             if (Input.GetKey(KeyCode.A))
             {
                 velocity = new Vector2(-1 * speed, rb.velocity.y);
                 rb.velocity = velocity;
+
+                GetComponent<SpriteRenderer>().flipX = true;
 
             }
             if (Input.GetKeyDown(KeyCode.W))
@@ -61,6 +73,25 @@ public class Player1MovementScript : MonoBehaviour
 
             }
         }
+
+
+
+
+
+
+
+        if (velocity != Vector2.zero)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
+
+
+
+
 
 
 
