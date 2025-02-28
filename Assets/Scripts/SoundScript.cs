@@ -9,6 +9,10 @@ public class SoundScript : MonoBehaviour
     public AudioClip[] GrassFootSteps;
     public AudioClip[] WaterSplashes;
     public AudioClip InFrontOfDoorSoundEffect;
+    public AudioClip ExitDoorOpenSoundEffect;
+    public AudioClip HumanJumpSoundEffect;
+    public AudioClip VampireJumpSoundEffect;
+    public AudioClip DeathSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -57,5 +61,44 @@ public class SoundScript : MonoBehaviour
         audioSource.Play();
         Destroy(this.gameObject, audioSource.clip.length);
 
+    }
+
+    public void ExitDoorOpenSound()
+    {
+        audioSource.clip = ExitDoorOpenSoundEffect;
+        audioSource.volume = 0.5f;
+
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
+
+    }
+    public void PlayHumanJumpSoundEffect()
+    {
+        audioSource.clip = HumanJumpSoundEffect;
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
+    }
+    public void PlayVampireJumpSoundEffect()
+    {
+        audioSource.clip = VampireJumpSoundEffect;
+        float randomnum = Random.Range(6f, 10);
+
+        audioSource.pitch = randomnum / 10;
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
+    }
+    public void PlayHumanDeathSound()
+    {
+        audioSource.clip = DeathSoundEffect;
+        audioSource.pitch = 1.1f;
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
+    }
+    public void PlayVampireDeathSound()
+    {
+        audioSource.clip = DeathSoundEffect;
+        audioSource.pitch = .85f;
+        audioSource.Play();
+        Destroy(this.gameObject, audioSource.clip.length);
     }
 }

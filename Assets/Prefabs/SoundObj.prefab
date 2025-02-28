@@ -153,3 +153,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1efcfbda872fcfd4dbcda02db3c89640, type: 3}
   - {fileID: 8300000, guid: 73dba053fb44b87468fef55d6590d308, type: 3}
   InFrontOfDoorSoundEffect: {fileID: 8300000, guid: 3a92d80d5ef31134b8b6d4b942a3e46a, type: 3}
+  ExitDoorOpenSoundEffect: {fileID: 8300000, guid: 11a225568de717e4b85178eb1d410e47, type: 3}
+  HumanJumpSoundEffect: {fileID: 8300000, guid: 87a2cb3177727c345af7415c1681ae42, type: 3}
+  VampireJumpSoundEffect: {fileID: 8300000, guid: e9c5550d479f44d4199935f92bc93be3, type: 3}
+  DeathSoundEffect: {fileID: 8300000, guid: 19afb24c5f9a3bb4bb6c5f548492ede7, type: 3}

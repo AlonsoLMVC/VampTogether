@@ -64,8 +64,15 @@ public class Player1MovementScript : MonoBehaviour
                 if (NumberOfJumps != 0)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
-                    Instantiate(Particles,transform.position,Quaternion.identity);
+
+                    Instantiate(Particles, transform.position, Quaternion.identity);
+
                     NumberOfJumps--;
+
+
+                    GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                    NewSound.GetComponent<SoundScript>().PlayVampireJumpSoundEffect();
+
                 }
             }
             if (Input.GetKeyDown(KeyCode.S))
@@ -129,8 +136,13 @@ public class Player1MovementScript : MonoBehaviour
         StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
 
         GetComponent<SpriteRenderer>().enabled = false;
+        MovementEnabled = false;
 
-        yield return new WaitForSecondsRealtime(fadeDuration);
+        GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+        NewSound.GetComponent<SoundScript>().PlayVampireDeathSound();
+
+
+        yield return new WaitForSecondsRealtime(NewSound.GetComponent<SoundScript>().audioSource.clip.length);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null;

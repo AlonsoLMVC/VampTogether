@@ -19,7 +19,7 @@ public class FloorTriggerScript : MonoBehaviour
 
         Ray2D ray;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.05f,LayerMask.GetMask("Ground"));
 
         if (hit.collider != null)
         {

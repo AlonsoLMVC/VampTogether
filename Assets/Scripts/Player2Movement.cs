@@ -58,13 +58,14 @@ public class Player2Movement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow) && OnGround)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 1 * JumpHeight);
+
+                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+                NewSound.GetComponent<SoundScript>().PlayHumanJumpSoundEffect();
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 //velocity = Vector2.right;
 
-                GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
-                NewSound.GetComponent<SoundScript>().PlayFootStep("Grass");
             }
 
 
@@ -114,9 +115,13 @@ public class Player2Movement : MonoBehaviour
         StartCoroutine(GameObject.Find("Canvas").GetComponent<CanvasScript>().FadeToBlack(fadeDuration));
 
         GetComponent<SpriteRenderer>().enabled = false;
+        MovementEnabled = false;
 
 
-        yield return new WaitForSecondsRealtime(fadeDuration);
+        GameObject NewSound = Instantiate(SoundObj, transform.position, Quaternion.identity);
+        NewSound.GetComponent<SoundScript>().PlayHumanDeathSound();
+
+        yield return new WaitForSecondsRealtime(NewSound.GetComponent<SoundScript>().audioSource.clip.length);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null;
